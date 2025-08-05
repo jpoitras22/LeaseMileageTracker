@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lease Mileage Tracker</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,10 +20,7 @@
             display: block;
             margin-top: 10px;
         }
-        input[type="date"]{
-            appearance: none;
-        }
-        input[type="date"],
+
         input[type="number"] {
             width: 100%;
             padding: 8px;
@@ -52,7 +50,7 @@
     <h1>Lease Mileage Tracker</h1>
     <form id="leaseForm">
         <label for="startDate">Lease Start Date:</label>
-        <input type="date" id="startDate" required>
+        <input type="text" id="datePicker" style="width: 100%;" required>
 
         <label for="leaseLength">Lease Length (months):</label>
         <input type="number" id="leaseLength" required>
@@ -75,11 +73,16 @@
         <p><strong>Remaining Mileage:</strong> <span id="remainingMileage"></span></p>
         <p><strong>Mileage Over/Under Expected:</strong> <span id="mileageBalance"></span></p>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
+        flatpickr("#datePicker", {
+            dateFormat: "Y-m-d",
+            static: true
+        });
         document.getElementById('leaseForm').addEventListener('submit', function(event) {
         event.preventDefault();
 
-        const startDateInput = document.getElementById('startDate').value;
+        const startDateInput = document.getElementById('datePicker').value;
         const leaseLength = parseInt(document.getElementById('leaseLength').value);
         const startMileage = parseInt(document.getElementById('startMileage').value);
         const allowedMileage = parseInt(document.getElementById('allowedMileage').value);
@@ -121,6 +124,6 @@
         document.getElementById('results').style.display = 'block';
     });
 </script>
-    
+
 </body>
 </html>
