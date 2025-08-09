@@ -71,7 +71,7 @@
         <p><strong>Lease End Date:</strong></p> <span id="endDate"></span></p>
         <p><strong>Days Left in Lease:</strong> <span id="daysLeft"></span></p>
         <p><strong>Remaining Mileage:</strong> <span id="remainingMileage"></span></p>
-        <p><strong>Mileage Over/Under Expected:</strong> <span id="mileageBalance"></span></p>
+        <p><strong>Mileage Over/Under Expected:</strong> <span id="unsignedMileage"></span></p>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
@@ -114,12 +114,14 @@
         const expectedDailyMileage = allowedMileage / totalLeaseDays;
         const expectedMileageByNow = expectedDailyMileage * (totalLeaseDays - daysLeft);
         const mileageBalance = usedMileage - expectedMileageByNow;
+        let intermediate = mileageBalance.toFixed(2);
+        let unsignedMileage = intermediate.replace("-", "");
 
         document.getElementById('endDate').textContent = endDate;
         document.getElementById('daysLeft').textContent = daysLeft;
         document.getElementById('remainingMileage').textContent = remainingMileage;
-        document.getElementById('mileageBalance').textContent =
-            `${mileageBalance >= 0 ? '+' : ''}${mileageBalance.toFixed(2)} miles ${mileageBalance >= 0 ? 'over' : 'under'} expected usage`;
+        document.getElementById('unsignedMileage').textContent =
+            `${mileageBalance >= 0 ? '+' : ''}${unsignedMileage} miles ${mileageBalance >= 0 ? 'over' : 'under'} expected usage`;
 
         document.getElementById('results').style.display = 'block';
     });
